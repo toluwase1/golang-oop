@@ -16,6 +16,11 @@ func (ba *BankAccount) Withdraw()  {
 
 }
 
+//func (a Principal) abc()  {
+//
+//}
+
+
 func main() {
 	
 }

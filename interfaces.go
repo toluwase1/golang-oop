@@ -14,6 +14,30 @@ Staffs
 	- A principal can admit applicants based on age.
  */
 
+type person struct {
+	name string
+	id float64
+	gender [] string
+	age float64
+	designation [] string
+	address string
+}
+
+
+
+//and i want to write a method the can make the principal
+//write in a new student into an array of student struct
+
+
+type teacher struct {
+
+}
+
+type student struct {
+
+}
+
+
 func teachCourse()  {
 
 }
@@ -32,6 +56,9 @@ func expelStudent()  {
 func admitApplicants()  {
 
 }
+
+
+
 
 func main() {
 
