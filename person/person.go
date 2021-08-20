@@ -1,7 +1,7 @@
 package person
 
 type Person struct {
-	name string
+	Name string
 	id int
 	age int
 	gender string

@@ -21,14 +21,14 @@ func NewApplicants(name string, id int, age int, person person.Person) *Applican
 //}
 
 type StaffType struct {
-	academic bool
+	teacher bool
 	nonAcademic bool
 }
 
 type Class struct {
-	hundredLevel string
-	twoHundredLevel string
-	threeHundredLevel string
+	Jss1 string
+	Jss2 string
+	Jss3 string
 }
 
 type Staff struct {
@@ -41,12 +41,15 @@ type Hundred struct {
 }
 
 //check something here
-type AcademicStaff struct {
+type Teacher struct {
 	Staff
+	name string
+	Class
 }
 
-
-
+func NewTeacher(staff Staff, name string, class Class) *Teacher {
+	return &Teacher{Staff: staff, name: name, Class: class}
+}
 
 
 type AdmissionsOffice interface {
@@ -82,6 +85,19 @@ func (p Principal) AdmitApplicant(applicant Applicants) *students.Student {
 }
 
 
+/*
+teacher takes courses
+a method that takes in teacher name and produces the shows the courses he/she takes
+takes in courses and produces names and classes of teachers
+
+student takes courses
+a method that takes in teacher name and produces the shows the courses he/she takes
+takes in courses and produces names and classes of teachers
+*/
+
+func (t Teacher) teachCourse()  {
+
+}
 
 
 //func (s *bill) save()  {
@@ -101,9 +117,12 @@ func (p Principal) expelStudent(student *students.Student)  {
 	}
 }
 
-func (t AcademicStaff) gradeStudent(c students.Student) string {
-	//composition
-	resultPage:= "Result breakdown for \n"
+func (t Teacher) gradeStudent(c students.Student) string {
+//SUPPLY TEACHER INFO AND STUDENT INFO BEFORE GRADING
+	resultPage:= "Result Page \n"
+	resultPage+=fmt.Sprintf("Class Teacher %s \n", t.name)
+	resultPage+=fmt.Sprintf("Student Name %s \n", c.Name)
+	resultPage+=fmt.Sprintf("Student Name %s \n", c.Name)
 	for k, v := range c.Results {
 		v+=v
 		if v >= 70 {
@@ -126,8 +145,4 @@ func (t AcademicStaff) gradeStudent(c students.Student) string {
 	}
 	resultPage+=fmt.Sprintf("%-25v ...$%0.2f")
 	return resultPage
-}
-
-func (t AcademicStaff) teachCourse()  {
-	fmt.Println("I am teaching a course")
 }

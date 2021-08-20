@@ -1,6 +1,7 @@
 package students
 
 import (
+	"golang-OOP/courses"
 	"golang-OOP/person"
 	"golang-OOP/school"
 )
@@ -10,16 +11,19 @@ import (
 type Student struct {
 	Offence bool
 	person.Person
-	//courses.Courses
+	school.Teacher
 	Results map[string]int
+	courses.Courses
 }
+
+func NewStudent2(offence bool, person person.Person, teacher school.Teacher, results map[string]int, courses courses.Courses) *Student {
+	return &Student{Offence: offence, Person: person, Teacher: teacher, Results: results, Courses: courses}
+}
+
 
 func NewStudent(offence bool, person person.Person, results map[string]int) *Student {
 	return &Student{Offence: offence, Person: person, Results: results}
 }
-
-
-
 
 
 func AddToStudentList (applicants school.Applicants) (string, [] Student) {
