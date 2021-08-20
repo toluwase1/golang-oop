@@ -3,18 +3,18 @@ package school
 import (
 	"fmt"
 	"golang-OOP/person"
-	"golang-OOP/students"
 )
 type Applicants struct {
-	name string
 	id   int
 	Age  int
 	person.Person
 }
 
-func NewApplicants(name string, id int, age int, person person.Person) *Applicants {
-	return &Applicants{name: name, id: id, Age: age, Person: person}
+func NewApplicants(id int, age int, person person.Person) *Applicants {
+	return &Applicants{id: id, Age: age, Person: person}
 }
+
+
 
 //type Applicants struct {
 //	applicant.Applicants
@@ -61,29 +61,48 @@ type Principal struct {
 	person.Person
 }
 
-
-func applicants(name string) Applicants {
-	newApplicant:= Applicants{
-		Age:    0,
-		Person: person.Person{},
-	}
-	return newApplicant
+func NewPrincipal(person person.Person) *Principal {
+	return &Principal{Person: person}
 }
 
-func (p Principal) AdmitApplicant(applicant Applicants) *students.Student {
-	stud:= students.NewStudent(false, applicant.Person, map[string]int{})
+
+//func applicants(name string) Applicants {
+//	newApplicant:= Applicants{
+//		Age:    0,
+//		Person: person.Person{},
+//	}
+//	return newApplicant
+//}
+
+func (p Principal) AdmitApplicant(applicant *Applicants) Student {
+	stud:= NewStudent(false, applicant.Person, map[string]int{})
 	count:=0
-	name:=""
-	applicant1:=applicants(name)
+	//name:=""
+	//applicant1:=NewApplicants()
 	if applicant.Age <10 {
 		fmt.Println("Applicant younger than required age")
 	} else {
-		students.AddToStudentList(applicant1)
 		count++
 	}
 	return stud
 }
 
+func (p Principal) AddToStudentList (applicants *Applicants, student *[]Student) (string, []Student) {
+	//studentList:= []Student{}
+	//stud:= Student{
+	//	Offence: false,
+	//	Person:  person.Person{},
+	//}
+	stud:= NewStudent(false, applicants.Person, map[string]int{})
+	if applicants.Age<10 {
+		error:= "You are too young"
+		return error, nil
+	} else {
+		*student=append(*student, stud)
+		fmt.Println(student)
+		return "", *student
+	}
+}
 
 /*
 teacher takes courses
@@ -95,9 +114,11 @@ a method that takes in teacher name and produces the shows the courses he/she ta
 takes in courses and produces names and classes of teachers
 */
 
-func (t Teacher) teachCourse()  {
-
-}
+//func (t Teacher) teachCourse(c courses.Courses)  {
+//	for i,j:= range c.Class {
+//
+//	}
+//}
 
 
 //func (s *bill) save()  {
@@ -111,13 +132,13 @@ func (t Teacher) teachCourse()  {
 
 
 
-func (p Principal) expelStudent(student *students.Student)  {
+func (p Principal) expelStudent(student *Student)  {
 	if student.Offence ==true {
 		fmt.Println("You have been expelled from this school")
 	}
 }
 
-func (t Teacher) gradeStudent(c students.Student) string {
+func (t Teacher) GradeStudent(c Student) string {
 //SUPPLY TEACHER INFO AND STUDENT INFO BEFORE GRADING
 	resultPage:= "Result Page \n"
 	resultPage+=fmt.Sprintf("Class Teacher %s \n", t.name)

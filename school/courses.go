@@ -1,10 +1,7 @@
-package courses
+package school
 
 type Courses struct {
 	name string
-	teacher string
+	Teacher
 	Results map[string]int
 }
-
-
-

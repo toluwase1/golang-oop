@@ -4,8 +4,8 @@ type Person struct {
 	Name string
 	id int
 	age int
-	gender string
-	title string
+	Gender string
+	Title string
 	role string
 }
 
