@@ -2,11 +2,19 @@ package school
 
 import (
 	"fmt"
-	applicant "golang-OOP/Applicants"
 	"golang-OOP/person"
 	"golang-OOP/students"
-	"os"
 )
+type Applicants struct {
+	name string
+	id   int
+	Age  int
+	person.Person
+}
+
+func NewApplicants(name string, id int, age int, person person.Person) *Applicants {
+	return &Applicants{name: name, id: id, Age: age, Person: person}
+}
 
 //type Applicants struct {
 //	applicant.Applicants
@@ -35,17 +43,10 @@ type Hundred struct {
 //check something here
 type AcademicStaff struct {
 	Staff
-	Courses
 }
 
 
-type Principal struct {
-	person.Person
-}
 
-type Courses struct {
-	results map[string]int
-}
 
 
 type AdmissionsOffice interface {
@@ -53,18 +54,36 @@ type AdmissionsOffice interface {
 	expelStudent()
 }
 
+type Principal struct {
+	person.Person
+}
 
 
-func (p Principal) admitApplicant(applicant applicant.Applicants) students.Student {
+func applicants(name string) Applicants {
+	newApplicant:= Applicants{
+		Age:    0,
+		Person: person.Person{},
+	}
+	return newApplicant
+}
 
+func (p Principal) AdmitApplicant(applicant Applicants) *students.Student {
+	stud:= students.NewStudent(false, applicant.Person, map[string]int{})
 	count:=0
+	name:=""
+	applicant1:=applicants(name)
 	if applicant.Age <10 {
 		fmt.Println("Applicant younger than required age")
 	} else {
-		applicant.
+		students.AddToStudentList(applicant1)
 		count++
 	}
+	return stud
 }
+
+
+
+
 //func (s *bill) save()  {
 //	data:= [] byte (b.format()) //format and put into a byteslice, then save into data
 //	err:= os.WriteFile("bills/"+b.name+".txt", data,0666)
@@ -84,9 +103,8 @@ func (p Principal) expelStudent(student *students.Student)  {
 
 func (t AcademicStaff) gradeStudent(c students.Student) string {
 	//composition
-	c.results = map[string]int{"Maths": 90, "English": 45, "Physics": 62, "Chemistry": 29, "Biology": 52}
-	resultPage:= "Result breakdown\n"
-	for k, v := range c.results {
+	resultPage:= "Result breakdown for \n"
+	for k, v := range c.Results {
 		v+=v
 		if v >= 70 {
 			resultPage+=fmt.Sprintf("You scored %i+A in %s \n", v, k)

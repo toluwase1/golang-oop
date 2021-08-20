@@ -23,8 +23,6 @@ type person struct {
 	address string
 }
 
-
-
 //and i want to write a method the can make the principal
 //write in a new student into an array of student struct
 
